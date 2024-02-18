@@ -531,14 +531,14 @@ section {
 }
 
 .constructions .card-item .card-bg {
-  min-height: 300px;
+  min-height: 425px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .constructions .card-item .card-body {
-  padding: 30px;
+  padding: 20px;
 }
 
 .constructions .card-item h4 {
@@ -551,6 +551,7 @@ section {
 .constructions .card-item p {
   color: var(--color-secondary);
   margin: 0;
+  font-size: smaller;
 }
 
 /*--------------------------------------------------------------
