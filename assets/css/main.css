@@ -42,7 +42,20 @@ body {
   min-width: 135px;
   min-height: 135px;
 }
-
+      /* Restoring previous button style with gold background color */
+      #submit-btn {
+        background-color: gold; /* Change background color to gold */
+        color: #fff; /* Example text color */
+        border: none; /* Remove border */
+        padding: 10px 20px; /* Adjust padding */
+        border-radius: 5px; /* Add border radius */
+        cursor: pointer; /* Change cursor on hover */
+        transition: background-color 0.3s ease; /* Smooth transition for background color */
+    }
+        /* Hover effect */
+  #submit-btn:hover {
+      background-color: darkgoldenrod; /* Change background color on hover */
+  }
 
 a {
   color: var(--color-primary);

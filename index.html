@@ -130,13 +130,14 @@
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9761.559345799224!2d4.671442145531513!3d52.29077848687084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c5e7a1f1b4534b%3A0xe4a6422936aff7b5!2sParellaan%202%20%2FA%2C%202132%20WS%20Hoofddorp!5e0!3m2!1sen!2snl!4v1708315262927!5m2!1sen!2snl" frameborder="0" style="border:0; width: 100%; height: 384px;" allowfullscreen></iframe>
           </div><!-- End Google Maps -->
           <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form id="contact-form" method="post" role="form" class="php-email-form">
+              <input type="hidden" name="access_key" value="5e7acb22-e4cb-48d3-b999-348b87b2d92c">
               <div class="row gy-4">
                 <div class="col-lg-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Naam" required>
                 </div>
                 <div class="col-lg-6 form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
                 </div>
               </div>
               <div class="form-group">
@@ -147,10 +148,10 @@
               </div>
               <div class="my-3">
                 <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
+                <div class="error-message">Er is iets misgegaan.<br/>Controleer uw invoer.</div>
+                <div class="sent-message">Je bericht is verzonden.<br/>Bedankt!</div>
               </div>
-              <div class="text-center"><button type="submit">Verstuur</button></div>
+              <div class="text-center"><button type="button" id="submit-btn">Verstuur</button></div>
             </form>
           </div><!-- End Contact Form -->
 
@@ -618,7 +619,7 @@
           <!-- You can delete the links only if you purchased the pro version. -->
           <!-- Licensing information: https://bootstrapmade.com/license/ -->
           <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/upconstruction-bootstrap-construction-website-template/ -->
-          Designed by <a>GA</a>
+          Designed by <a>e-comservice.nl</a>
         </div>
       </div>
     </div>
@@ -637,7 +638,56 @@
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!--handling and resetting form-->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('contact-form');
+    var successMessage = document.querySelector('.sent-message');
+    var errorMessage = document.querySelector('.error-message');
+
+    document.getElementById('submit-btn').addEventListener('click', function(event) {
+        if (form.checkValidity()) {
+            event.preventDefault(); // Prevent default button behavior
+
+            // Get form data
+            var formData = new FormData(form);
+
+            // Make an AJAX request
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://api.web3forms.com/submit', true); // Replace with your server endpoint
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Show success message
+                    successMessage.style.display = 'block';
+
+                    // Reset form fields after 3 seconds
+                    setTimeout(function() {
+                        successMessage.style.display = 'none';
+                        form.reset();
+                    }, 3000);
+                } else {
+                    // Handle error
+                    alert('There was a problem submitting the form. Please try again later.');
+                }
+            };
+            xhr.onerror = function() {
+                // Handle error
+                alert('There was a problem submitting the form. Please try again later.');
+            };
+            xhr.send(formData);
+        } else {
+            // Show error message for invalid form
+            errorMessage.style.display = 'block';
+
+            // Hide error message after 3 seconds
+            setTimeout(function() {
+                errorMessage.style.display = 'none';
+            }, 3000);
+        }
+    });
+});
+  </script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
