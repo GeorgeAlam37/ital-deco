@@ -25,5 +25,7 @@
   
   
   <p>Visit website for more information: <a href="https://www.italdeco.nl">www.Italdeco.nl</a></p>
+  <h2>ScreenShot</h2>
+  <img src="./italdeco.png" alt="screenshot" style="width:600px;"/>
 </body>
 </html>
